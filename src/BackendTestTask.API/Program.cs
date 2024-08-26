@@ -1,9 +1,27 @@
+using BackendTestTask.API.Infrastructure.Configurations;
+using BackendTestTask.DataAccess.Extensions;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
+var configuration = builder.Configuration;
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var services = builder.Services;
+
+services.AddControllers()
+    .Services
+    .AddEndpointsApiExplorer()
+    .AddSwaggerGen()
+    .AddInfrastructureServices()
+    .AddBusinessLogicServices()
+    .AddPostgresContext(options =>
+    {
+        var connectionString = configuration.GetConnectionString("TestTaskDbContext");
+        options.UseNpgsql(connectionString, options => options.EnableRetryOnFailure(3));
+    })
+    .AddProviders()
+    .AddRepositories();
+;
 
 var app = builder.Build();
 
