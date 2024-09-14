@@ -37,6 +37,17 @@ public class TreeService : ITreeService
         return node.Id;
     }
 
+    public async Task<TreeDto?> Get(Guid treeId, int depth, CancellationToken cancellationToken)
+    {
+        var treeQuery = _treeProvider.Get(treeId);
+
+        var tree = await treeQuery.FirstOrDefaultAsync(cancellationToken);
+
+        var dto = _mapper.Map<TreeDto>(tree);
+
+        return dto;
+    }
+
     public async Task<List<TreeDto>> GetRange(CancellationToken cancellationToken)
     {
         var trees = await _treeProvider.GetRange()

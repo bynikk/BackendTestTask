@@ -22,16 +22,21 @@ public class TreeController : Controller
     [HttpPost("create", Name = nameof(CreateTree))]
     public async Task<IResult> CreateTree([FromBody] CreateTreeRequest request, CancellationToken cancellationToken)
     {
-        // Validate the request (assuming you have a validator, otherwise manually validate)
-        // _createNodeRequestValidator.ValidateAndThrow(request);
-
         var newId = await _treeService.Add(request.Name, cancellationToken);
 
-        return TypedResults.Ok(newId);
+        return TypedResults.Created(nameof(CreateTree), newId);
     }
 
-    [HttpGet("tree/range", Name = nameof(GetRangeTrees))]
+    [HttpGet("range", Name = nameof(GetRangeTrees))]
     public async Task<IResult> GetRangeTrees(CancellationToken cancellationToken)
+    {
+        var trees = await _treeService.GetRange(cancellationToken);
+
+        return TypedResults.Ok(trees);
+    }
+
+    [HttpGet("{treeId:guid}/{depth:int}", Name = nameof(GetTree))]
+    public async Task<IResult> GetTree(Guid treeId, int depth, CancellationToken cancellationToken)
     {
         var trees = await _treeService.GetRange(cancellationToken);
 

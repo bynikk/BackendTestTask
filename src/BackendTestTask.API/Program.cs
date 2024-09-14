@@ -1,4 +1,5 @@
 using BackendTestTask.API.Infrastructure.Configurations;
+using BackendTestTask.API.Middlewares;
 using BackendTestTask.DataAccess.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,9 +32,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<CorrelationIdMiddleware>();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.ConfigureExceptionMiddleware();
 
 app.MapControllers();
 

@@ -3,7 +3,7 @@ using BackendTestTask.BusinessLogic.DTOs;
 namespace BackendTestTask.BusinessLogic.Services;
 public interface INodeService
 {
-    Task Add(Guid treeId, string name, Guid? parentNodeId, CancellationToken cancellationToken);
+    Task<Guid> Add(Guid treeId, string name, Guid? parentNodeId, CancellationToken cancellationToken);
 
     Task Remove(Guid nodeId, CancellationToken cancellationToken);
 

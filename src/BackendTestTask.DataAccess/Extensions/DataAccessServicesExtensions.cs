@@ -25,7 +25,9 @@ public static class DataAccessServicesExtensions
         services.AddScoped<IDataContext, DataContext>();
 
         services.AddScopedDbSet<Node>()
-                .AddScopedDbSet<Tree>();
+                .AddScopedDbSet<Tree>()
+                .AddScopedDbSet<SecurityExceptionLog>()
+                .AddScopedDbSet<SecurityExceptionLogData>();
 
         return services;
     }
@@ -38,7 +40,8 @@ public static class DataAccessServicesExtensions
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<INodeRepository, NodeRepository>()
-                .AddScoped<ITreeRepository, TreeRepository>();
+                .AddScoped<ITreeRepository, TreeRepository>()
+                .AddScoped<ISecurityExceptionLogRepository, SecurityExceptionLogRepository>();
 
         return services;
     }
@@ -51,7 +54,8 @@ public static class DataAccessServicesExtensions
     public static IServiceCollection AddProviders(this IServiceCollection services)
     {
         services.AddScoped<INodeProvider, NodeProvider>()
-                .AddScoped<ITreeProvider, TreeProvider>();
+                .AddScoped<ITreeProvider, TreeProvider>()
+                .AddScoped<ISecurityExceptionLogProvider, SecurityExceptionLogProvider>();
 
         return services;
     }

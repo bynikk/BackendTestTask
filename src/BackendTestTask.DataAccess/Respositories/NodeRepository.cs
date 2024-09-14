@@ -1,24 +1,24 @@
-using BackendTestTask.DataAccess.Data;
 using BackendTestTask.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackendTestTask.DataAccess.Respositories;
 
 public class NodeRepository : INodeRepository
 {
-    private readonly TestTaskDbContext _context;
+    private readonly DbSet<Node> _dbSet;
 
-    public NodeRepository(TestTaskDbContext context)
+    public NodeRepository(DbSet<Node> dbSet)
     {
-        _context = context;
+        _dbSet = dbSet;
     }
 
     public Task Add(Node node, CancellationToken cancellationToken)
     {
-        return _context.Nodes.AddAsync(node, cancellationToken).AsTask();
+        return _dbSet.AddAsync(node, cancellationToken).AsTask();
     }
 
     public Task Remove(Node node, CancellationToken cancellationToken)
     {
-        return Task.FromResult(_context.Nodes.Remove(node));
+        return Task.FromResult(_dbSet.Remove(node));
     }
 }

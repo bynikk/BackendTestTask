@@ -12,6 +12,18 @@ namespace BackendTestTask.DataAccess.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "SecurityExceptionLogDataEntries",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Message = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SecurityExceptionLogDataEntries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Trees",
                 columns: table => new
                 {
@@ -21,6 +33,27 @@ namespace BackendTestTask.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Trees", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SecurityExceptionLogs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ExceptionName = table.Column<string>(type: "text", nullable: false),
+                    CorrelationId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DataId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAtUtc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "NOW()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SecurityExceptionLogs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SecurityExceptionLogs_SecurityExceptionLogDataEntries_DataId",
+                        column: x => x.DataId,
+                        principalTable: "SecurityExceptionLogDataEntries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,6 +90,11 @@ namespace BackendTestTask.DataAccess.Migrations
                 name: "IX_Nodes_TreeId",
                 table: "Nodes",
                 column: "TreeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SecurityExceptionLogs_DataId",
+                table: "SecurityExceptionLogs",
+                column: "DataId");
         }
 
         /// <inheritdoc />
@@ -66,7 +104,13 @@ namespace BackendTestTask.DataAccess.Migrations
                 name: "Nodes");
 
             migrationBuilder.DropTable(
+                name: "SecurityExceptionLogs");
+
+            migrationBuilder.DropTable(
                 name: "Trees");
+
+            migrationBuilder.DropTable(
+                name: "SecurityExceptionLogDataEntries");
         }
     }
 }

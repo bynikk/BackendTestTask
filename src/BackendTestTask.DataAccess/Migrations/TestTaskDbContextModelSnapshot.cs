@@ -47,6 +47,49 @@ namespace BackendTestTask.DataAccess.Migrations
                     b.ToTable("Nodes", (string)null);
                 });
 
+            modelBuilder.Entity("BackendTestTask.DataAccess.Entities.SecurityExceptionLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<Guid>("DataId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ExceptionName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DataId");
+
+                    b.ToTable("SecurityExceptionLogs", (string)null);
+                });
+
+            modelBuilder.Entity("BackendTestTask.DataAccess.Entities.SecurityExceptionLogData", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SecurityExceptionLogDataEntries", (string)null);
+                });
+
             modelBuilder.Entity("BackendTestTask.DataAccess.Entities.Tree", b =>
                 {
                     b.Property<Guid>("Id")
@@ -77,6 +120,17 @@ namespace BackendTestTask.DataAccess.Migrations
                     b.Navigation("ParentNode");
 
                     b.Navigation("Tree");
+                });
+
+            modelBuilder.Entity("BackendTestTask.DataAccess.Entities.SecurityExceptionLog", b =>
+                {
+                    b.HasOne("BackendTestTask.DataAccess.Entities.SecurityExceptionLogData", "Data")
+                        .WithMany()
+                        .HasForeignKey("DataId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Data");
                 });
 
             modelBuilder.Entity("BackendTestTask.DataAccess.Entities.Node", b =>

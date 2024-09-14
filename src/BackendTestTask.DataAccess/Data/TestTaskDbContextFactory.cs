@@ -16,7 +16,7 @@ public class TestTaskDbContextFactory : IDesignTimeDbContextFactory<TestTaskDbCo
     public TestTaskDbContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<TestTaskDbContext>();
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=TestTaskDbContext;User Id=postgres;Password=123");
+        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=TestTaskDbContext;User Id=postgres;Password=postgres");
 
         return new TestTaskDbContext(optionsBuilder.Options);
     }

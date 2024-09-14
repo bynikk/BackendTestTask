@@ -33,7 +33,7 @@ public class NodeService : INodeService
         _mapper = mapper;
     }
 
-    public async Task Add(Guid treeId, string name, Guid? parentNodeId, CancellationToken cancellationToken)
+    public async Task<Guid> Add(Guid treeId, string name, Guid? parentNodeId, CancellationToken cancellationToken)
     {
         var treeExists = await _treeProvider.Get(treeId).AnyAsync(cancellationToken);
 
@@ -62,6 +62,8 @@ public class NodeService : INodeService
         await _nodeRepository.Add(node, cancellationToken);
 
         await _dataContext.CommitChangesAsync(cancellationToken);
+
+        return node.Id;
     }
 
     public async Task Remove(Guid nodeId, CancellationToken cancellationToken)

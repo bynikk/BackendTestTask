@@ -9,5 +9,7 @@ public class DtoProfile : Profile
     {
         CreateMap<Node, NodeDto>();
         CreateMap<Tree, TreeDto>();
+        CreateMap<SecurityExceptionLogData, SecurityExceptionLogDataDto>();
+        CreateMap<SecurityExceptionLog, SecurityExceptionLogDto>();
     }
 }

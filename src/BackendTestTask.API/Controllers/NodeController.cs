@@ -4,6 +4,8 @@ using BackendTestTask.BusinessLogic.Services;
 using BackendTestTask.API.Contracts.Requests;
 using BackendTestTask.API.Contracts.Responses.Nodes;
 
+namespace BackendTestTask.API.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class NodeController : ControllerBase
@@ -20,29 +22,15 @@ public class NodeController : ControllerBase
     [HttpPost("create", Name = nameof(CreateNode))]
     public async Task<IResult> CreateNode([FromBody] CreateNodeRequest request, CancellationToken cancellationToken)
     {
-        // Validate the request (assuming you have a validator, otherwise manually validate)
-        // _createNodeRequestValidator.ValidateAndThrow(request);
+        var newId = await _nodeService.Add(request.TreeId, request.Name, request.ParentNodeId, cancellationToken);
 
-        await _nodeService.Add(request.TreeId, request.Name, request.ParentNodeId, cancellationToken);
-
-        var response = new CreateNodeResponse
-        {
-            Success = true,
-            Message = "Node created successfully"
-        };
-
-        return TypedResults.Ok(response);
+        return TypedResults.Created("CreateNode", newId);
     }
 
     [HttpGet("{id:guid}", Name = nameof(GetNodeById))]
     public async Task<IResult> GetNodeById(Guid id, CancellationToken cancellationToken)
     {
         var node = await _nodeService.GetById(id, cancellationToken);
-
-        if (node == null)
-        {
-            return TypedResults.NotFound($"Node with ID {id} not found.");
-        }
 
         return TypedResults.Ok(node);
     }

@@ -1,25 +1,25 @@
-using BackendTestTask.DataAccess.Data;
 using BackendTestTask.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackendTestTask.DataAccess.Providers;
 
 public class NodeProvider : INodeProvider
 {
-    private readonly TestTaskDbContext _context;
+    private readonly DbSet<Node> _dbSet;
 
-    public NodeProvider(TestTaskDbContext context)
+    public NodeProvider(DbSet<Node> dbSet)
     {
-        _context = context;
+        _dbSet = dbSet;
     }
 
     public IQueryable<Node> Get(Guid nodeId)
     {
-        return _context.Nodes.Where(node => node.Id == nodeId);
+        return _dbSet.Where(node => node.Id == nodeId);
     }
 
     public IQueryable<Node> GetRange()
     {
-        var query = _context.Nodes.AsQueryable();
+        var query = _dbSet.AsQueryable();
 
         return query;
     }

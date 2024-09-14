@@ -5,15 +5,15 @@ namespace BackendTestTask.DataAccess.Respositories;
 
 public class TreeRepository : ITreeRepository
 {
-    private readonly DbSet<Tree> _trees;
+    private readonly DbSet<Tree> _dbSet;
 
-    public TreeRepository(DbSet<Tree> trees)
+    public TreeRepository(DbSet<Tree> dbSet)
     {
-        _trees = trees;
+        _dbSet = dbSet;
     }
 
     public Task Add(Tree tree, CancellationToken cancellationToken)
     {
-        return _trees.AddAsync(tree, cancellationToken).AsTask();
+        return _dbSet.AddAsync(tree, cancellationToken).AsTask();
     }
 }

@@ -29,7 +29,8 @@ public static partial class AppConfigurations
     {
         services
             .AddScoped<INodeService, NodeService>()
-            .AddScoped<ITreeService, TreeService>();
+            .AddScoped<ITreeService, TreeService>()
+            .AddScoped<ISecurityExceptionLogService, SecurityExceptionLogService>();
 
         return services;
     }

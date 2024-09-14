@@ -1,24 +1,24 @@
-using BackendTestTask.DataAccess.Data;
 using BackendTestTask.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackendTestTask.DataAccess.Providers;
 
 public class TreeProvider : ITreeProvider
 {
-    private readonly TestTaskDbContext _context;
+    private readonly DbSet<Tree> _dbSet;
 
-    public TreeProvider(TestTaskDbContext context)
+    public TreeProvider(DbSet<Tree> dbSet)
     {
-        _context = context;
+        _dbSet = dbSet;
     }
 
     public IQueryable<Tree> Get(Guid treeId)
     {
-        return _context.Trees.Where(tree => tree.Id == treeId);
+        return _dbSet.Where(tree => tree.Id == treeId);
     }
 
     public IQueryable<Tree> GetRange()
     {
-        return _context.Trees.AsQueryable();
+        return _dbSet.AsQueryable();
     }
 }
