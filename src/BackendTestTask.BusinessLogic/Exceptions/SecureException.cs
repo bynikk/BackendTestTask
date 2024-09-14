@@ -1,7 +1,10 @@
 namespace BackendTestTask.BusinessLogic.Exceptions;
+
 public class SecureException : Exception
 {
-    public SecureException(string? message) : base(message) {}
+    public SecureException(string? message) : base(message)
+    {
+    }
 
     public static void ThrowIfNull(object? argument, string? paramName = null)
     {

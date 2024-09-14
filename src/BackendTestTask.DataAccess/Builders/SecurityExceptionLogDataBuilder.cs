@@ -1,6 +1,7 @@
 using BackendTestTask.DataAccess.Entities;
 
 namespace BackendTestTask.DataAccess.Builders;
+
 public static class SecurityExceptionLogDataBuilder
 {
     public static SecurityExceptionLogData Build(string exeptionMessage)

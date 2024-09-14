@@ -35,10 +35,10 @@ public class TreeController : Controller
         return TypedResults.Ok(trees);
     }
 
-    [HttpGet("{treeId:guid}/{depth:int}", Name = nameof(GetTree))]
-    public async Task<IResult> GetTree(Guid treeId, int depth, CancellationToken cancellationToken)
+    [HttpGet("{treeId:guid}", Name = nameof(GetTree))]
+    public async Task<IResult> GetTree(Guid treeId, CancellationToken cancellationToken)
     {
-        var trees = await _treeService.GetRange(cancellationToken);
+        var trees = await _treeService.Get(treeId, cancellationToken);
 
         return TypedResults.Ok(trees);
     }

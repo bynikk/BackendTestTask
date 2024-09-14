@@ -1,4 +1,4 @@
-﻿using BackendTestTask.DataAccess.Data.Constants;
+using BackendTestTask.DataAccess.Data.Constants;
 using BackendTestTask.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

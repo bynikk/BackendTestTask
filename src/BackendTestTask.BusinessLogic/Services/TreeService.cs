@@ -37,7 +37,7 @@ public class TreeService : ITreeService
         return node.Id;
     }
 
-    public async Task<TreeDto?> Get(Guid treeId, int depth, CancellationToken cancellationToken)
+    public async Task<TreeDto?> Get(Guid treeId, CancellationToken cancellationToken)
     {
         var treeQuery = _treeProvider.Get(treeId);
 

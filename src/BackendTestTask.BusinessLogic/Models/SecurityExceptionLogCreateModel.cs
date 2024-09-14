@@ -1,4 +1,5 @@
 namespace BackendTestTask.BusinessLogic.Models;
+
 public class SecurityExceptionLogCreateModel
 {
     public string ExceptionName { get; set; }

@@ -3,6 +3,7 @@ using BackendTestTask.BusinessLogic.DTOs;
 using BackendTestTask.DataAccess.Entities;
 
 namespace BackendTestTask.BusinessLogic.Mappings;
+
 public class DtoProfile : Profile
 {
     public DtoProfile()

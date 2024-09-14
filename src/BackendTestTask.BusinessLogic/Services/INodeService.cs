@@ -1,6 +1,7 @@
 using BackendTestTask.BusinessLogic.DTOs;
 
 namespace BackendTestTask.BusinessLogic.Services;
+
 public interface INodeService
 {
     Task<Guid> Add(Guid treeId, string name, Guid? parentNodeId, CancellationToken cancellationToken);

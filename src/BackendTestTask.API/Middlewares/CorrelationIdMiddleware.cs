@@ -14,7 +14,8 @@ public class CorrelationIdMiddleware
         var correlationId = Guid.NewGuid().ToString();
         context.Items["CorrelationId"] = correlationId;
 
-        context.Response.OnStarting(() => {
+        context.Response.OnStarting(() =>
+        {
             context.Response.Headers.Add("X-Correlation-ID", correlationId);
             return Task.CompletedTask;
         });

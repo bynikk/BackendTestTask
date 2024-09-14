@@ -8,6 +8,7 @@ public class DataContext : IDataContext
     {
         _testTaskDbContext = testTaskDbContext;
     }
+
     public Task CommitChangesAsync(CancellationToken cancellationToken)
     {
         return _testTaskDbContext.SaveChangesAsync(cancellationToken);

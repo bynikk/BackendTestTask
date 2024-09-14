@@ -9,6 +9,7 @@ using BackendTestTask.DataAccess.Respositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackendTestTask.BusinessLogic.Services;
+
 public class SecurityExceptionLogService : ISecurityExceptionLogService
 {
     private readonly IDataContext _dataContext;

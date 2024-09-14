@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using BackendTestTask.BusinessLogic.Services;
 using BackendTestTask.API.Contracts.Requests;
-using BackendTestTask.API.Contracts.Responses.Nodes;
+using BackendTestTask.BusinessLogic.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BackendTestTask.API.Controllers;
 
@@ -24,7 +23,7 @@ public class NodeController : ControllerBase
     {
         var newId = await _nodeService.Add(request.TreeId, request.Name, request.ParentNodeId, cancellationToken);
 
-        return TypedResults.Created("CreateNode", newId);
+        return TypedResults.Created(nameof(CreateNode), newId);
     }
 
     [HttpGet("{id:guid}", Name = nameof(GetNodeById))]
@@ -35,7 +34,7 @@ public class NodeController : ControllerBase
         return TypedResults.Ok(node);
     }
 
-    [HttpGet("tree/{treeId:guid}", Name = nameof(GetNodesByTreeId))]
+    [HttpGet("/{treeId:guid}", Name = nameof(GetNodesByTreeId))]
     public async Task<IResult> GetNodesByTreeId(Guid treeId, CancellationToken cancellationToken)
     {
         var nodes = await _nodeService.GetRangeByTreeId(treeId, cancellationToken);
@@ -48,12 +47,6 @@ public class NodeController : ControllerBase
     {
         await _nodeService.Remove(id, cancellationToken);
 
-        var response = new RemoveNodeResponse
-        {
-            Success = true,
-            Message = "Node removed successfully"
-        };
-
-        return TypedResults.Ok(response);
+        return TypedResults.NoContent();
     }
 }

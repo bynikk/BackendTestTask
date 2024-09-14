@@ -9,9 +9,12 @@ public class TestTaskDbContext : DbContext
 
     public DbSet<Tree> Trees { get; set; }
 
-    public TestTaskDbContext() { }
+    public TestTaskDbContext()
+    { }
 
-    public TestTaskDbContext(DbContextOptions<TestTaskDbContext> options) : base(options) { }
+    public TestTaskDbContext(DbContextOptions<TestTaskDbContext> options) : base(options)
+    {
+    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

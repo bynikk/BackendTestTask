@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using BackendTestTask.API.Infrastructure.Configurations;
 using BackendTestTask.API.Middlewares;
 using BackendTestTask.DataAccess.Extensions;
@@ -9,7 +10,8 @@ var configuration = builder.Configuration;
 
 var services = builder.Services;
 
-services.AddControllers()
+services.AddControllers().AddJsonOptions(x =>
+   x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve)
     .Services
     .AddEndpointsApiExplorer()
     .AddSwaggerGen()

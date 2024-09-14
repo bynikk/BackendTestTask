@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BackendTestTask.DataAccess.Data.Configurations;
+
 public class SecurityExceptionLogDataConfiguration : IEntityTypeConfiguration<SecurityExceptionLogData>
 {
     public void Configure(EntityTypeBuilder<SecurityExceptionLogData> builder)

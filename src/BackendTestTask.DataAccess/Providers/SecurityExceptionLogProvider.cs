@@ -2,6 +2,7 @@ using BackendTestTask.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackendTestTask.DataAccess.Providers;
+
 public class SecurityExceptionLogProvider : ISecurityExceptionLogProvider
 {
     private readonly DbSet<SecurityExceptionLog> _dbSet;

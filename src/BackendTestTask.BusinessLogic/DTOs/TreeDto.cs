@@ -1,4 +1,5 @@
 namespace BackendTestTask.BusinessLogic.DTOs;
+
 public class TreeDto
 {
     public Guid Id { get; set; }

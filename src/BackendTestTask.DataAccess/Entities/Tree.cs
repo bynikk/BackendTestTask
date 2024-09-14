@@ -1,4 +1,4 @@
-﻿namespace BackendTestTask.DataAccess.Entities;
+namespace BackendTestTask.DataAccess.Entities;
 
 public class Tree
 {

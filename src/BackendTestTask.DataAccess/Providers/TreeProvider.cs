@@ -14,7 +14,9 @@ public class TreeProvider : ITreeProvider
 
     public IQueryable<Tree> Get(Guid treeId)
     {
-        return _dbSet.Where(tree => tree.Id == treeId);
+        return _dbSet
+            .Where(tree => tree.Id == treeId)
+            .Include(tree => tree.Nodes);
     }
 
     public IQueryable<Tree> GetRange()

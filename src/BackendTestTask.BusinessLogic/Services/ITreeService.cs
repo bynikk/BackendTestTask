@@ -8,5 +8,5 @@ public interface ITreeService
 
     Task<List<TreeDto>> GetRange(CancellationToken cancellationToken);
 
-    Task<TreeDto?> Get(Guid treeId, int depth, CancellationToken cancellationToken);
+    Task<TreeDto?> Get(Guid treeId, CancellationToken cancellationToken);
 }
